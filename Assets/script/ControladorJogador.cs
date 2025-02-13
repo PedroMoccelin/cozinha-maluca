@@ -32,7 +32,6 @@ public class ControladorJogador : MonoBehaviour
                 altX = 0;
 
             // Modificar posição:
-
             Vector3 novaPos = new Vector3(altX, altY, 0);
             transform.position += novaPos;
 
@@ -44,20 +43,22 @@ public class ControladorJogador : MonoBehaviour
     {
         if (collision.name == "Voador")
         {
+            //marcando ponto do placar
             juizDoJogo.MarcarPonto();
+
+            //volta o objeto para a posiçao inicial horizontal
             collision.GetComponent<ControladorVoador>().posicaoObj.x = 
             collision.GetComponent<ControladorVoador>().posInicialX;
 
+            //atualizar a posiçao vertical do objeto
+            float posicaoY = Random.value * 470;
+            collision.GetComponent<ControladorVoador>().posicaoObj.y = posicaoY;
 
 
+            //Trocar a imagem do obj a ser coletado
+            collision.GetComponent<ControladorVoador>().MudarImagem();
         }
-
-
-
-
     }
-
-
 }
 
 

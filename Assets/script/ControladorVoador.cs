@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControladorVoador : MonoBehaviour
 {
-    public float deslocamentoObjeto;
+    public float incrementoVelocidade; //velocidade por segundo
+    public float deslocamentoObjeto; //velocidade inicial
+    public Sprite[] imagensObjetos;
+
     internal int sentidoV;
     internal Vector3 posicaoObj;
+    internal float deslocamentoAbs;
+    internal int numImagemAtual = 0;
 
     public float posInicialX;
     
@@ -16,13 +22,19 @@ public class ControladorVoador : MonoBehaviour
         posicaoObj = transform.position;
         posInicialX = transform.position.x;
 
+        deslocamentoAbs = deslocamentoObjeto;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        posicaoObj.y +=  (deslocamentoObjeto * sentidoV * Time.deltaTime);
-        posicaoObj.x += (deslocamentoObjeto * Time.deltaTime);
+        //Movimentaçao do objeto:Velocidade do deslocamento do objeto,vezes
+        //sentido(vertical),vezes "Time.deltaTime",vezes velocidade dinamica
+        posicaoObj.y += (deslocamentoAbs * sentidoV * Time.deltaTime);
+        posicaoObj.x += (deslocamentoAbs * Time.deltaTime);
+
+        deslocamentoAbs += incrementoVelocidade * Time.deltaTime;
 
         transform.position = posicaoObj;
 
@@ -34,11 +46,19 @@ public class ControladorVoador : MonoBehaviour
         else if (transform.position.y < 38)
             sentidoV = 1;
 
-        //Movimentaçao Vertical
+    }
 
+    public void MudarImagem()
+    {
+        numImagemAtual += 1;
 
+        if (numImagemAtual == imagensObjetos.Length)
+            numImagemAtual = 0;
 
-
+        GetComponent<Image>().sprite = imagensObjetos[numImagemAtual];
 
     }
+
+
+
 }
