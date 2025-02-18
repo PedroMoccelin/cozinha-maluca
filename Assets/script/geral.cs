@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class geral : MonoBehaviour
@@ -65,7 +66,13 @@ public class geral : MonoBehaviour
 
     }
 
+    public void CarregarCena(string nomeDaCena)
+    {
+        SceneManager.LoadScene(nomeDaCena);
 
+
+
+    }
 
 
 
